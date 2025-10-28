@@ -11,13 +11,21 @@
     width: 100%;
     height: 80px;
     padding: 10px 20px;
+<<<<<<< HEAD
     background-color: transparent;
+=======
+    background-color: rgba(53, 50, 50, 0.8);
+>>>>>>> d1bd2cf605422b425183e10eff92327d73a08105
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
+<<<<<<< HEAD
     transition: background-color 0.25s ease, box-shadow 0.25s ease;
+=======
+    transition: background-color 0.3s ease;
+>>>>>>> d1bd2cf605422b425183e10eff92327d73a08105
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     .logo {
@@ -37,6 +45,19 @@
         &:hover img {
             transform: scale(1.05);
         }
+<<<<<<< HEAD
+=======
+        p{
+            font-family: "华文隶书";
+            letter-spacing: 10px;
+            font-size: 80px;
+            font-weight: 100;
+            text-align: center;
+            margin-top: 10px;
+            padding: 5px;
+            color:#fff ;
+        }
+>>>>>>> d1bd2cf605422b425183e10eff92327d73a08105
     }
 
     .nav {
@@ -49,6 +70,7 @@
             list-style: none;
             padding: 10px;
 
+<<<<<<< HEAD
             li {
                 a {
                     position: relative;
@@ -97,27 +119,72 @@
                 }
 
                 .submenu ul {
+=======
+            li  {
+                
+                a{
+                position: relative;
+                margin: 0;
+                padding: 0;
+                padding: 15px 50px;
+                font: 500 24px '优设标题黑';
+                border: none;
+                outline: none;
+                color: azure;
+                display: inline-block;
+                text-decoration: none;
+                z-index: 3;
+
+                }
+                .submenu{
+                  display: none;
+                  position: absolute;
+                  top: 100%;
+                  left: 0;
+                  background-color: rgba(53, 50, 50, 0.95);
+                  border-radius: 0 0 8px 8px;
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
+                  min-width: 160px;
+                  z-index: 1001;
+                  padding: 0;
+                  margin: 0; 
+                }
+                .submenu ul{
+>>>>>>> d1bd2cf605422b425183e10eff92327d73a08105
                     display: block;
                     padding: 0;
                     margin: 0;
                 }
+<<<<<<< HEAD
 
                 .submenu ul li {
+=======
+                .submenu ul li{
+>>>>>>> d1bd2cf605422b425183e10eff92327d73a08105
                     padding: 0;
                     margin: 0;
                     width: 100%;
                     text-align: center;
                 }
+<<<<<<< HEAD
 
                 .submenu ul li a {
                     display: block;
                     padding: 10px 20px;
                     font-size: 16px;
                     color: azure;
+=======
+                .submenu ul li a{
+                    display: block;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    color:azure;
+>>>>>>> d1bd2cf605422b425183e10eff92327d73a08105
                     text-decoration: none;
                     white-space: nowrap;
                     transition: background-color 0.2s ease;
                 }
+<<<<<<< HEAD
 
                 .submenu ul li a:hover {
                     background-color: rgba(0, 0, 0, 0.5);
@@ -132,6 +199,44 @@
                     padding: 0;
                 }
 
+=======
+                .submenu ul li a:hover{
+                    background-color: rgba(0, 0, 0, 0.5);
+                }
+                &:hover .submenu{
+                    display: block;
+                }
+                &.has-submenu{
+                    position:relative;
+                    padding:0;
+                }
+                
+            }
+
+            .slide1,
+            .slide2 {
+                position: absolute;
+                display: inline-block;
+                height: 60px;
+                border-radius: 10em;
+                transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1.05);
+            }
+
+            .slide1 {
+                background-color: rgba(139, 69, 19, 0.8);
+                z-index: 2;
+            }
+
+            .slide2 {
+                opacity: 0;
+                background-color: rgba(160, 82, 45, 0.6);
+                z-index: 1;
+                box-shadow: 0 0 20px #ffffffaa inset;
+            }
+
+            .squeese {
+                transform: scale(0.9)
+>>>>>>> d1bd2cf605422b425183e10eff92327d73a08105
             }
         }
     }
