@@ -1,0 +1,332 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社区论坛</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+        }
+        .navbar {
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+        .logo img {
+            height: 60px;
+        }
+        .nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 5px 10px;
+        }
+        .nav a:hover {
+            color: #c29965;
+        }
+        .img {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        .img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .content {
+            width: 1200px;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: 250px 700px 250px;
+            gap: 20px;
+        }
+        .c-left {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .c-medium {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .forum-post-card {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+        .post-cover {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .post-cover-placeholder {
+            width: 100px;
+            height: 100px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            border-radius: 4px;
+        }
+        .post-content {
+            flex: 1;
+        }
+        .post-title {
+            margin-bottom: 8px;
+        }
+        .post-title a {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .post-title a:hover {
+            color: #c29965;
+        }
+        .post-excerpt {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .post-meta {
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            gap: 15px;
+        }
+        .no-posts {
+            text-align: center;
+            padding: 50px 0;
+            color: #666;
+        }
+        .create-post-btn, .create-first-post {
+            display: inline-block;
+            background: #c29965;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+        .create-post-btn:hover, .create-first-post:hover {
+            background: #a88450;
+        }
+        .post-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .sidebar-module h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        .category-list, .active-user-list, .latest-comments {
+            list-style: none;
+        }
+        .category-list li, .active-user-list li {
+            margin-bottom: 10px;
+        }
+        .category-list a, .active-user-list a {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .category-list a:hover, .active-user-list a:hover {
+            color: #c29965;
+        }
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #f5f5f5;
+            color: #666;
+            text-decoration: none;
+            font-size: 12px;
+            border-radius: 15px;
+        }
+        .tag:hover {
+            background: #c29965;
+            color: #fff;
+        }
+        .latest-comments li {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .comment-content {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .comment-source {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 3px;
+        }
+        .comment-source a {
+            color: #c29965;
+            text-decoration: none;
+        }
+        .comment-author {
+            font-size: 11px;
+            color: #666;
+        }
+
+        @media (max-width: 1200px) {
+            .content {
+                width: 90%;
+                grid-template-columns: 250px 1fr;
+            }
+            .c-right {
+                display: none;
+            }
+        }
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            .c-left {
+                display: none;
+            }
+            .navbar {
+                height: auto;
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+            .nav ul {
+                margin-top: 15px;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/图片3.png' %}" alt="陶语阁">
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="{% url 'home' %}">首页</a></li>
+                <li><a href="{% url 'forum_index' %}" style="color: #c29965; font-weight: 600;">社区首页</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'my_profile' %}">我的</a></li>
+                    <li><a href="{% url 'logout' %}">退出</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">登录</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="img">
+        <img src="{% static 'images/论坛/2.jpg' %}" alt="陶瓷论坛Banner">
+    </div>
+
+    <div class="content">
+        <div class="c-left">
+            <div class="sidebar-module">
+                <h3>帖子分类</h3>
+                <ul class="category-list">
+                    {% for category in categories %}
+                        <li>
+                            <a href="{% url 'category_posts' category.id %}">
+                                {{ category.name }}
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li>暂无分类</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- 中栏：核心帖子列表 -->
+        <div class="c-medium">
+            <div class="post-list-header">
+                <h2>陶瓷论坛</h2>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'create_post' %}" class="create-post-btn">发布新帖</a>
+                {% else %}
+                    <a href="{% url 'login' %}?next={% url 'create_post' %}" class="create-post-btn">登录发布</a>
+                {% endif %}
+            </div>
+
+            <!-- 帖子列表 -->
+            {% for post in posts %}
+                <div class="forum-post-card">
+                    <!-- 帖子图片 -->
+                    <a href="{% url 'post_detail' post.pk %}">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-cover">
+                        {% else %}
+                        <div class="post-cover-placeholder" title="点击图片查看帖子详情">🏺</div>
+                        {% endif %}
+                    </a>
+
+                    <div class="post-content">
+                        <h3 class="post-title">
+                            <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                        </h3>
+                        <p class="post-excerpt">{{ post.content|truncatechars:120 }}</p>
+
+                        <div class="post-meta">
+                            <span>作者：{{ post.author.username }}</span>
+                            <span>发布时间：{{ post.created_at|date:"Y-m-d H:i" }}</span>
+                            <span>浏览：{{ post.views }}</span>
+                            <span>点赞：{{ post.like_count }}</span>
+                            <span>评论：{{ post.comment_set.count }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="no-posts">
+                    <p>暂无帖子，快来发布第一篇陶瓷分享吧！</p>
+                    <a href="{% url 'create_post' %}" class="create-first-post">发布新帖</a>
+                </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+</body>
+</html>

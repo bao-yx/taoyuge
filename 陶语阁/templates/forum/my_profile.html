@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的主页 - 陶语阁社区</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background-color: #f8f7f4;
+            color: #333;
+            line-height: 1.6;
+            background-image: url("https://picsum.photos/id/1041/2000/2000");
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(248, 247, 244, 0.96);
+            z-index: -1;
+        }
+
+
+        .nav {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-logo::before {
+            content: "🏺";
+            font-size: 22px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 15px;
+            margin-left: 20px;
+            transition: color 0.3s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::before {
+            content: "";
+            font-size: 14px;
+        }
+
+
+        /* 个人主页容器 */
+        .profile-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* 个人信息头部 */
+        .profile-header {
+            display: flex;
+            gap: 35px;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e8e0d0;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* 头像样式 */
+        .avatar-wrapper {
+            position: relative;
+        }
+
+        .avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        /* 默认头像优化 */
+        .default-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background-color: #e8e0d0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b7d6b;
+            font-size: 48px;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .default-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        /* 用户信息区域 */
+        .user-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .user-info h2 {
+            font-size: 26px;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info h2::after {
+            content: "🏺";
+            font-size: 22px;
+            color: #c0b283;
+        }
+
+        .user-meta {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 18px;
+            color: #666;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-item::before {
+            content: "";
+            font-size: 16px;
+        }
+
+        .meta-item.post-count::before {
+            content: "📝";
+        }
+
+        .meta-item.like-count::before {
+            content: "❤️";
+        }
+
+        .meta-item.join-date::before {
+            content: "📅";
+        }
+
+        .bio {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            padding: 12px 15px;
+            background-color: rgba(232, 224, 208, 0.1); /* 淡陶土色背景 */
+            border-radius: 8px;
+            border-left: 3px solid #c0b283;
+        }
+
+        /* 编辑按钮优化 */
+        .edit-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 15px;
+            border: 1px solid #3498db;
+            padding: 8px 18px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .edit-link::before {
+            content: "✏️";
+            font-size: 14px;
+        }
+
+        .edit-link:hover {
+            background-color: #3498db;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(52, 152, 219, 0.2);
+        }
+
+        /* 内容板块样式 */
+        .section {
+            margin-bottom: 50px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        /* 板块标题 */
+        .section-header {
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            font-size: 20px;
+            color: white;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        /* 板块内容 */
+        .section-content {
+            padding: 25px;
+        }
+
+        /* 帖子列表 */
+        .post-list {
+            display: grid;
+            gap: 18px;
+        }
+
+        /* 帖子项样式 */
+        .post-item {
+            padding: 20px;
+            background-color: #faf9f6; /* 淡米黄色背景，模拟宣纸 */
+            border-radius: 8px;
+            border-left: 3px solid #c0b283; /* 陶土色侧边线 */
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .post-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .post-title {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .post-title a {
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-block;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .post-title a:hover {
+            color: #3498db;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+            font-size: 13px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .post-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* 空状态样式 */
+        .no-content {
+            color: #888;
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #faf9f6;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .no-content-icon {
+            font-size: 48px;
+            color: #e0d8c8; /* 淡陶土色 */
+        }
+
+        .no-content-text {
+            font-size: 15px;
+        }
+
+        .no-content-btn {
+            display: inline-block;
+            padding: 8px 18px;
+            background-color: #c0b283;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .no-content-btn:hover {
+            background-color: #b0a273;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(192, 178, 131, 0.3);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .user-meta {
+                justify-content: center;
+            }
+
+            .edit-link {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .section-content {
+                padding: 15px;
+            }
+
+            .post-item {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .avatar, .default-avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            .user-info h2 {
+                font-size: 22px;
+            }
+
+            .post-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+
+        .delete-btn {
+            background-color: transparent;
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .delete-btn::before {
+            content: "️❌";
+            font-size: 14px;
+        }
+
+        .delete-btn:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="nav">
+        <div class="nav-container">
+            <a href="{% url 'forum_index' %}" class="nav-logo">陶语阁社区</a>
+            <div class="nav-links">
+                <a href="{% url 'forum_index' %}">首页</a>
+                <a href="{% url 'create_post' %}">发布新帖</a>
+                <a href="{% url 'logout' %}">退出</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-container">
+        <!-- 个人信息头部 -->
+        <div class="profile-header">
+            <div class="avatar-wrapper">
+                {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" alt="{{ user.username }}" class="avatar">
+                {% else %}
+                    <!-- 陶瓷主题默认头像 -->
+                    <div class="default-avatar">
+                        {{ user.username|first }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="user-info">
+                <h2>{{ user.username }}</h2>
+                <div class="user-meta">
+                    <div class="meta-item post-count">
+                        发布帖子: {{ my_posts.count }}
+                    </div>
+                    <div class="meta-item like-count">
+                        点赞帖子: {{ liked_posts.count }}
+                    </div>
+                    <div class="meta-item join-date">
+                        加入时间: {{ user.date_joined|date:"Y-m-d" }}
+                    </div>
+                </div>
+                <p class="bio">{{ user.bio|default:"暂无个人简介，点击编辑按钮添加关于你的陶瓷故事吧~" }}</p>
+                <a href="{% url 'edit_profile' %}" class="edit-link">编辑个人信息</a>
+            </div>
+        </div>
+
+        <!-- 我的帖子 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">📝</span>
+                <h3 class="section-title">我的陶瓷分享</h3>
+            </div>
+            <div class="section-content">
+                <div class="post-list">
+                    {% for post in my_posts %}
+                        <div class="post-item">
+                            <div class="post-title">
+                                <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                            </div>
+                            <div class="post-meta">
+                                <div class="post-meta-item">
+                                    <span>发布于: {{ post.created_at|date:"Y-m-d H:i" }}</span>
+                                </div>
+                                <div class="post-meta-item">
+                                    <span>分类: {{ post.category.name }}</span>
+                                </div>
+                                <div class="post-meta-item">
+                                    <span>浏览: {{ post.views }} | 点赞: {{ post.like_count }}</span>
+                                </div>
+                                <div class="post-actions">
+                                    <a href="{% url 'edit_post' post.id %}" class="edit-link">编辑</a>
+                                    <button class="delete-btn" onclick="confirmDelete({{ post.id }})">删除</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="no-content">
+                            <div class="no-content-icon">📭</div>
+                            <div class="no-content-text">你还没有发布过陶瓷相关分享</div>
+                            <a href="{% url 'create_post' %}" class="no-content-btn">发布第一篇分享</a>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+function confirmDelete(postId) {
+    if (confirm('确定要删除这篇帖子吗？删除后不可恢复！')) {
+        window.location.href = "/forum/post/" + postId + "/delete/";
+    }
+}
+</script>
+</body>
+</html>

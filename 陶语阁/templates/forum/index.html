@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陶语阁社区 - 首页</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+        }
+
+
+        .nav {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-logo::before {
+            content: "🏺";
+            font-size: 22px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 15px;
+            margin-left: 20px;
+            transition: color 0.3s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::before {
+            content: "";
+            font-size: 14px;
+        }
+
+
+
+        /* 头部横幅 */
+        .forum-header {
+            background-color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            background-image: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url("https://picsum.photos/id/1041/1200/300");
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .forum-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .forum-desc {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* 主容器 */
+        .forum-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 50px;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+
+        /* 帖子列表 */
+        .post-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .post-content {
+            padding: 20px;
+        }
+
+        .post-title {
+            font-size: 18px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .post-title a {
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .post-title a:hover {
+            color: #3498db;
+        }
+
+        .post-excerpt {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #999;
+            padding-top: 10px;
+            border-top: 1px dashed #f0f0f0;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .meta-icon {
+            font-size: 14px;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-item {
+            margin-bottom: 10px;
+        }
+
+        .category-item a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .category-item a:hover {
+            color: #3498db;
+        }
+
+        .category-count {
+            background-color: #f0f0f0;
+            padding: 1px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .user-status {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .user-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .user-actions a {
+            display: block;
+            padding: 8px 0;
+            text-align: center;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .action-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .action-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .action-secondary {
+            background-color: #f5f5f5;
+            color: #666;
+        }
+
+        .action-secondary:hover {
+            background-color: #eee;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-text {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .empty-btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .empty-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 900px) {
+            .forum-container {
+                grid-template-columns: 1fr;
+            }
+
+            .post-list {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 500px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .forum-title {
+                font-size: 26px;
+            }
+
+            .post-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+ <img src="{% static 'images/logo.png' %}" alt="Logo">
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{% url 'forum_index' %}" class="logo">
+                <span class="logo-icon">🏺</span>
+                陶语阁社区
+            </a>
+            <div class="nav-links">
+                <a href="{% url 'forum_index' %}">首页</a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'my_profile' %}">我的</a>
+                {% else %}
+                    <a href="{% url 'login' %}?next=/my/profile/" title="请先登录">我的</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <a href="{% url 'create_post' %}" class="btn-post">发布新帖</a>
+                    <a href="{% url 'logout' %}">退出</a>
+                {% else %}
+                    <a href="{% url 'login' %}">登录</a>
+                    <a href="{% url 'register' %}">注册</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- 头部横幅 -->
+    <div class="forum-header">
+        <h1 class="forum-title">陶语阁社区</h1>
+        <p class="forum-desc">探索陶瓷艺术之美，分享收藏心得，交流创作灵感——这里是陶瓷爱好者的聚集地</p>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="forum-container">
+        <!-- 帖子列表 -->
+        <div class="post-list">
+            {% for post in posts %}
+                <div class="post-card">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+                    {% else %}
+                        <!-- 无图时显示默认背景 -->
+                        <div class="post-image" style="background-color: #f5f5f5; display: flex; align-items: center; justify-content: center; color: #ccc;">
+                            🏺
+                        </div>
+                    {% endif %}
+                    <div class="post-content">
+                        <h2 class="post-title">
+                            <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                        </h2>
+                        <p class="post-excerpt">{{ post.content|truncatechars:100 }}</p>
+                        <div class="post-meta">
+                            <div class="meta-item">
+                                <span class="meta-icon">👤</span>
+                                <span>{{ post.author.username }}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <span>{{ post.created_at|date:"m-d" }}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">❤️</span>
+                                <span>{{ post.like_count }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <p class="empty-text">还没有帖子呢，成为第一个分享的人吧！</p>
+                    <a href="{% url 'create_post' %}" class="empty-btn">发布第一篇帖子</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <!-- 用户状态 -->
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">用户中心</h3>
+                <div class="user-status">
+                    {% if user.is_authenticated %}
+                        <p>欢迎回来，{{ user.username }}！</p>
+                        <div class="user-actions">
+                            <a href="{% url 'my_profile' %}" class="action-primary">我的主页</a>
+                            <a href="{% url 'create_post' %}" class="action-secondary">发布新帖</a>
+                        </div>
+                    {% else %}
+                        <p>请登录后参与互动</p>
+                        <div class="user-actions">
+                            <a href="{% url 'login' %}" class="action-primary">登录</a>
+                            <a href="{% url 'register' %}" class="action-secondary">注册</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+</html>

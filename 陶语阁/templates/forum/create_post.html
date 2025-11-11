@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布新帖 - 陶语阁社区</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            background-image: url("https://picsum.photos/id/1041/1000/1000");
+            background-size: cover;
+            background-attachment: fixed;
+            background-opacity: 0.05;
+            position: relative;
+        }
+
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(245, 247, 250, 0.95);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* 头部区域 */
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        header::after {
+            content: "🏺";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 22px;
+            color: #c0b283;
+        }
+
+        header h1 {
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        header h1::before {
+            content: "📝";
+            font-size: 26px;
+            color: #3498db;
+        }
+
+        header p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        .nav {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-logo::before {
+            content: "🏺";
+            font-size: 22px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 15px;
+            margin-left: 20px;
+            transition: color 0.3s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::before {
+            content: "";
+            font-size: 14px;
+        }
+
+        /* 表单卡片 */
+        .post-form {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .post-form::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #c0b283, #dcd0c0, #c0b283);
+        }
+
+        /* 表单分组 */
+        .form-group {
+            margin-bottom: 28px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .form-group:hover {
+            transform: translateX(3px);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #444;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        label::before {
+            content: "";
+            width: 4px;
+            height: 16px;
+            background-color: #3498db;
+            border-radius: 2px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 13px 18px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+            background-color: #fafafa;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.12);
+            background-color: white;
+        }
+
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+            line-height: 1.8;
+            padding: 15px 18px;
+        }
+
+        /* 图片上传区域 */
+        .image-upload {
+            border: 2px dashed #e0e0e0;
+            padding: 35px 20px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s, background-color 0.3s, transform 0.2s;
+            background-color: #fafafa;
+        }
+
+        .image-upload:hover {
+            border-color: #3498db;
+            background-color: rgba(52, 152, 219, 0.03);
+            transform: translateY(-2px);
+        }
+
+        .image-upload input {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 32px;
+            color: #c0b283;
+            margin-bottom: 12px;
+            transition: color 0.3s;
+        }
+
+        .image-upload:hover .upload-icon {
+            color: #3498db;
+        }
+
+        .upload-text {
+            color: #666;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .image-upload span {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.5;
+            display: block;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* 按钮样式 */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 18px;
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .cancel-btn {
+            background-color: #f8f9fa;
+            color: #666;
+            border: 1px solid #e0e0e0;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cancel-btn::before {
+            content: "❌";
+            font-size: 14px;
+        }
+
+        .cancel-btn:hover {
+            background-color: #f1f3f5;
+            border-color: #d0d0d0;
+            color: #333;
+        }
+
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .submit-btn::before {
+            content: "✅";
+            font-size: 14px;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(52, 152, 219, 0.2);
+        }
+
+        /* 错误提示 */
+        .errorlist {
+            color: #e74c3c;
+            margin-bottom: 12px;
+            list-style: none;
+            font-size: 14px;
+            padding-left: 22px; /* 与label的图标对齐 */
+            position: absolute;
+            bottom: -18px;
+            left: 0;
+        }
+
+        .errorlist li {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .errorlist li::before {
+            content: "⚠️";
+            font-size: 12px;
+        }
+
+        /* 标签选择提示 */
+        .tag-tip {
+            color: #666;
+            margin-top: 8px;
+            display: block;
+            font-size: 14px;
+            padding-left: 22px; /* 与label对齐 */
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .container {
+                margin: 25px auto;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .post-form {
+                padding: 25px 20px;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+                gap: 12px;
+            }
+
+            .cancel-btn, .submit-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 0;
+            }
+
+            .image-upload {
+                padding: 25px 15px;
+            }
+
+            .upload-icon {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+ <!-- 导航栏 -->
+    <div class="nav">
+        <div class="nav-container">
+            <a href="{% url 'forum_index' %}" class="nav-logo">陶语阁社区</a>
+            <div class="nav-links">
+                <a href="{% url 'forum_index' %}">首页</a>
+                <a href="{% url 'my_profile' %}">我的</a>
+                <a href="{% url 'logout' %}">退出</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <header>
+            <h1>发布新帖</h1>
+            <p>分享陶瓷创作、鉴赏心得或行业动态，与同好交流</p>
+        </header>
+
+        <form method="post" enctype="multipart/form-data" class="post-form">
+            {% csrf_token %}
+
+            <!-- 标题字段 -->
+            <div class="form-group">
+                {{ form.title.label_tag }}
+                {% if form.title.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.title.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {{ form.title }}
+            </div>
+
+            <!-- 分类字段 -->
+            <div class="form-group">
+                {{ form.category.label_tag }}
+                {% if form.category.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.category.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {{ form.category }}
+            </div>
+
+            <!-- 标签字段 -->
+            <div class="form-group">
+                {{ form.tags.label_tag }}
+                {% if form.tags.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.tags.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {{ form.tags }}
+                <small class="tag-tip">按住Ctrl键可选择多个标签（建议不超过3个，更易被检索）</small>
+            </div>
+
+            <!-- 内容字段 -->
+            <div class="form-group">
+                {{ form.content.label_tag }}
+                {% if form.content.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.content.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {{ form.content }}
+            </div>
+
+            <!-- 图片上传字段 -->
+            <div class="form-group">
+                {{ form.image.label_tag }}
+                {% if form.image.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.image.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <div class="image-upload">
+                    <div class="upload-icon">🏺</div>
+                    <div class="upload-text">点击上传陶瓷相关图片</div>
+                    <span>支持JPG、PNG格式，最大5MB</span>
+                    {{ form.image }}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="{% url 'forum_index' %}" class="cancel-btn">取消发布</a>
+                <button type="submit" class="submit-btn">发布帖子</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // 图片选择反馈功能（优化交互细节）
+        const imageInput = document.querySelector('input[type="file"]');
+        const uploadContainer = document.querySelector('.image-upload');
+        const uploadText = document.querySelector('.upload-text');
+        const uploadIcon = document.querySelector('.upload-icon');
+
+        // 图片选择后更新样式和文本
+        imageInput.addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                // 限制文件大小（5MB）
+                const fileSize = this.files[0].size / 1024 / 1024;
+                if (fileSize > 5) {
+                    alert('图片大小不能超过5MB，请重新选择！');
+                    this.value = ''; // 清空选择
+                    return;
+                }
+
+                // 验证文件格式
+                const fileType = this.files[0].type;
+                if (!fileType.match('image/jpeg') && !fileType.match('image/png')) {
+                    alert('仅支持JPG、PNG格式图片，请重新选择！');
+                    this.value = ''; // 清空选择
+                    return;
+                }
+
+                // 合法文件：更新提示
+                uploadText.textContent = `已选择: ${this.files[0].name}`;
+                uploadContainer.style.borderColor = '#2ecc71';
+                uploadIcon.style.color = '#2ecc71';
+                uploadIcon.textContent = '✅';
+            } else {
+                // 清空选择：恢复默认
+                uploadText.textContent = '点击上传陶瓷相关图片';
+                uploadContainer.style.borderColor = '#e0e0e0';
+                uploadIcon.style.color = '#c0b283';
+                uploadIcon.textContent = '🏺';
+            }
+        });
+
+        // 点击上传区域触发文件选择
+        uploadContainer.addEventListener('click', function() {
+            imageInput.click();
+        });
+
+        // 表单提交前验证（避免空内容提交）
+        const postForm = document.querySelector('.post-form');
+        postForm.addEventListener('submit', function(e) {
+            const title = document.querySelector('input[name="title"]').value.trim();
+            const content = document.querySelector('textarea[name="content"]').value.trim();
+            const category = document.querySelector('select[name="category"]').value;
+
+            // 基础验证
+            if (!title) {
+                alert('请填写帖子标题！');
+                e.preventDefault();
+                return;
+            }
+            if (!content) {
+                alert('请填写帖子内容！');
+                e.preventDefault();
+                return;
+            }
+            if (!category) {
+                alert('请选择帖子分类！');
+                e.preventDefault();
+                return;
+            }
+        });
+    </script>
+</body>
+</html>

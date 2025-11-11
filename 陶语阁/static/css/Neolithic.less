@@ -1,0 +1,442 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.neolithic {
+    background: url(../images/新石器时代.jpg) no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: '优设标题黑', 'Microsoft YaHei', sans-serif;
+}
+body.sumner {
+    background: url(../images/夏商周-东汉初年.jpg) no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: '优设标题黑', 'Microsoft YaHei', sans-serif;
+}
+body.yuan {
+    background: url(../images/元代.jpg) no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: '优设标题黑', 'Microsoft YaHei', sans-serif;
+}
+body.tang {
+    background: url(../images/唐代.jpg) no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: '优设标题黑', 'Microsoft YaHei', sans-serif;
+}
+body.song {
+    background: url(../images/宋代.jpg) no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: '优设标题黑', 'Microsoft YaHei', sans-serif;
+}
+body.han {
+    background: url(../images/东汉-南北朝.jpg) no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: '优设标题黑', 'Microsoft YaHei', sans-serif;
+}
+body {
+
+    &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.6);
+        z-index: -1;
+    }
+}
+
+.header {
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(222, 184, 135, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    border-bottom: 4px solid rgba(255, 255, 255, 0.1);
+
+    h1 {
+        font-size: 80px;
+        font-family: '华文隶书';
+        letter-spacing: 2px;
+        color: #000000;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #000000;
+    }
+}
+
+h2 {
+    font-size: 50px;
+    letter-spacing: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #6d4c41;
+
+    &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, transparent, #8d6e63, transparent);
+        ;
+        margin-top: 10px;
+    }
+
+    &:hover {
+        color: #4e342e;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        transition: all 0.3s ease;
+    }
+}
+
+.background {
+    width: 50%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    .main {
+        display: flex;
+        justify-content: center;
+        /* 使子项高度一致，方便图片随文本高度变化 */
+        align-items: stretch;
+        margin-top: 20px;
+        border-bottom: #000000 5px solid;
+
+        /* 确保内容位于伪元素之上 */
+        z-index: 1;
+
+        .text {
+            margin-left: 20px;
+            /* 文本区域可伸展以占据剩余空间 */
+            flex: 1 1 auto;
+
+            .title {
+                font-size: 30px;
+                margin-bottom: 20px;
+                font-weight: bold;
+            }
+
+            .content {
+                font-size: 20px;
+                line-height: 1.5;
+                margin-bottom: 20px;
+
+            }
+        }
+
+        .img {
+            /* 固定占比或最大宽度，保持图片宽度稳定 */
+            flex: 0 0 40%;
+            max-width: 40%;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            margin-right: 50px;
+            /* 保证图片区域高度随文本区域高度变化 */
+            display: block;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            &:hover img {
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+
+.feature {
+    width: 50%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .item {
+            width: 300px;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            margin-right: 40px;
+            border-radius: 40px;
+            background: rgba(189, 183, 107, 0.8);
+            flex: 0 0 auto;
+
+            &:hover {
+                background: rgba(222, 184, 135, 0.9);
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+                transform: scale3d(1.1, 1.1, 1) translateZ(0);
+            }
+
+            .text {
+                margin-left: 5px;
+
+                .title {
+                    font-size: 20px;
+                    font-family: '华文仿宋';
+                    margin-bottom: 20px;
+                    font-weight: bold;
+
+                    &::after {
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 1px;
+                        background: rgba(101, 67, 33, 0.5);
+                        margin-top: 10px;
+                    }
+                }
+            }
+
+            .img {
+                background: rgba(255, 255, 255, 0.7);
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                overflow: hidden;
+                transition: transform 0.3s ease;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                &:hover {
+                    transform: scale(1.05);
+                }
+
+            }
+        }
+    }
+}
+
+.technique {
+    width: 50%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    position: relative;
+
+    .wrap {
+        margin-top: 10px;
+        width: 100%;
+        min-height: inherit;
+        position: relative;
+        padding: 20px 0;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 5px;
+            z-index: 1;
+            height: 100%;
+            background-color: #8d6e63;
+        }
+
+        .box {
+            position: relative;
+            width: 100%;
+            /* 允许高度随内容自适应，移除固定高度 */
+            height: auto;
+            margin-bottom: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch; /* 使左右两列高度跟随内容 */
+
+            &:nth-child(even) .right {
+                background-color: rgba(160, 82, 45, 0.2);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            }
+
+            &:nth-child(odd) .left {
+                background-color: rgba(160, 82, 45, 0.2);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            }
+
+            .left,
+            .right {
+                position: relative;
+                /* 使用百分比最大宽度，但允许内容决定实际宽度 */
+                flex: 0 0 40%;
+                /* 高度改为自动，使其随文字撑开 */
+                height: auto;
+                text-align: center;
+                color: #4e342e;
+                border-radius: 15px;
+                padding: 15px; /* 给内容留出内边距 */
+            }
+
+            .center {
+                z-index: 2;
+                /* 让中间区域根据内部内容自适应宽度 */
+                flex: 0 0 auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-self: center; /* 垂直居中 */
+
+                span {
+                    display: inline-block;
+                    padding: 8px 12px;
+                    border-radius: 10px;
+                    text-align: center;
+                    font-weight: 900;
+                    font-size: 24px;
+                    line-height: 1.2;
+                    background-color: rgba(222, 184, 135, 0.9);
+                    color: #5d4037;
+                    border: 2px solid #8d6e63;
+                    white-space: nowrap; /* 防止文本换行 */
+                }
+            }
+
+        }
+    }
+}
+
+.object {
+    width: 50%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .gallery {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .card {
+            flex-shrink: 0;
+            flex-grow: 0;
+            position: relative;
+            width: 300px;
+            height: 450px;
+            overflow: hidden;
+            margin: 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            background-color: #8d6e63;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #2c2c2c;
+
+            &:hover {
+                .item {
+                    width: 120px;
+                    height: 120px;
+                    top: 30px;
+                    border-radius: 50%;
+                }
+            }
+
+            &:hover {
+                h1 {
+                    position: absolute;
+                    top: 170px;
+                }
+            }
+
+            .item {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                overflow: hidden;
+                border-radius: 0;
+                box-shadow: 0 0 30px #111;
+                transition: 0.5s;
+
+                img {
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                &::before{
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(235, 229, 229, 0.176);
+                }
+
+
+            }
+
+            h1 {
+                position: absolute;
+                top: 380px;
+                transition: 0.5s;
+            }
+
+            h3 {
+                margin-top: 220px;
+                width: 80%;
+                font-weight: normal;
+                text-align: center;
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            }
+
+            p {
+                width: 90%;
+                text-align: center;
+                text-indent: 2em;
+                font-size: 16px;
+                line-height: 30px;
+            }
+        }
+    }
+}

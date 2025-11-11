@@ -1,0 +1,48 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陶语阁</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/图片3.png' %}" alt="">
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="{% url 'home' %}">首页</a></li>
+                <li class="has-submenu"><a href="{% url 'culture_page' %}">陶瓷文化</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="{% url 'culture_page' %}">历史沿革</a></li>
+                            <li><a href="{% url 'technical_page' %}" target="_blank">工艺技术</a></li>
+                            <li><a href="{% url 'picture_page' %}">陶瓷鉴赏</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="{% url 'forum_index' %}">社区</a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="main">
+        <div class="title">
+            <h1>中华陶瓷 艺术瑰宝</h1>
+        </div>
+        <div class="content">
+            <div class="content1">
+                <a href="{% url 'culture_page' %}"><button>陶瓷文化</button></a>
+            </div>
+            <div class="content2">
+                <a href="{% url 'forum_index' %}"><button>社区</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

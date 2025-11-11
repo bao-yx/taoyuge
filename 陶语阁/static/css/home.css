@@ -1,0 +1,111 @@
+body {
+  background: url(../images/论坛/背景.jpg) no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: '优设标题黑', 'Microsoft YaHei', sans-serif;
+}
+.main {
+  text-align: center;
+  padding: 60px 80px;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+/* 标题样式 */
+.title {
+  margin-bottom: 40px;
+}
+.title h1 {
+  font-family: '华文琥珀';
+  font-size: 6rem;
+  color: #f5f5dc;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 245, 220, 0.3);
+  margin: 0;
+  padding: 0;
+  letter-spacing: 8px;
+  font-weight: 500;
+  position: relative;
+}
+.title h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #f5f5dc, transparent);
+  border-radius: 2px;
+}
+/* 内容区域 */
+.content {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+}
+.content .content1,
+.content .content2 {
+  position: relative;
+}
+button {
+  width: 280px;
+  padding: 18px 40px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #f5f5dc;
+  background: rgba(139, 69, 19, 0.3);
+  border: 2px solid rgba(245, 245, 220, 0.4);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  backdrop-filter: blur(5px);
+}
+button:hover {
+  background: rgba(160, 82, 45, 0.4);
+  border-color: rgba(245, 245, 220, 0.8);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(245, 245, 220, 0.2);
+}
+button:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s;
+}
+button:hover::before {
+  left: 100%;
+}
+button:active {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+button:active::after {
+  width: 300px;
+  height: 300px;
+}
